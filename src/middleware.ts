@@ -1,25 +1,32 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import type { NextFetchEvent, NextMiddleware, NextRequest } from 'next/server';
 
-function middleware1(request: NextRequest) {
-  const url = request.url;
-  console.log('middleware 1 => ', url);
+function withMiddleware1(middleware: NextMiddleware) {
+  return async (request: NextRequest, event: NextFetchEvent) => {
+    const url = request.url;
+    console.log('middleware 1 => ', url);
 
-  return NextResponse.next();
+    return middleware(request, event);
+  };
 }
 
-function middleware2(request: NextRequest) {
+function middlewareExtra(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  console.log('middleware 2 => ', { pathname });
+  console.log('middleware extra => ', { pathname });
 
   return NextResponse.next();
 }
 
-export async function middleware(request: NextRequest) {
-  await middleware1(request);
-  await middleware2(request);
+function withMiddleware2(middleware: NextMiddleware) {
+  return async (request: NextRequest, event: NextFetchEvent) => {
+    const pathname = request.nextUrl.pathname;
+    console.log('middleware 2 => ', { pathname });
 
-  return NextResponse.next();
+    return middleware(request, event);
+  };
 }
+
+export default withMiddleware1(withMiddleware2(middlewareExtra));
 
 export const config = {
   matches: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
