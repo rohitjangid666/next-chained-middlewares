@@ -7,8 +7,18 @@ module.exports = {
 
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  daisyui: {
+    themes: ['dark'],
+  },
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+      },
+    },
     extend: {},
   },
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require('daisyui')],
 };

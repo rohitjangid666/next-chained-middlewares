@@ -1,11 +1,8 @@
 import { chain } from './middlewares/chain';
-import { withMiddleware1 } from './middlewares/middleware1';
-import { withMiddleware2 } from './middlewares/middleware2';
+import { withAuthorization } from './middlewares/withAuthorization';
+import { withHeaders } from './middlewares/withHeaders';
+import { withLogging } from './middlewares/withLogging';
 
-const middlewares = [withMiddleware1, withMiddleware2];
+const middlewares = [withAuthorization, withLogging, withHeaders];
 
 export default chain(middlewares);
-
-export const config = {
-  matches: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-};

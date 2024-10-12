@@ -30,7 +30,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
-        {children}
+
+        <main className='min-h-screen pt-[60px]'>{children}</main>
       </body>
     </html>
   );

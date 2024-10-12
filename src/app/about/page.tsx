@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <div>
-      <h1 style={{ marginTop: '5rem' }}>About</h1>
+      <h1>About</h1>
     </div>
   );
 };
