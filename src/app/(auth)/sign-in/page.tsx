@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const SignInPage = () => {
@@ -21,12 +20,14 @@ const SignInPage = () => {
   ): Promise<void> => {
     e.preventDefault();
     console.log('Logging in');
-    const result = await signIn('credentials', {
-      email,
-      password,
-      callbackUrl: callbackUrl ?? '/',
-      redirect: false,
-    });
+    // const result = await signIn('credentials', {
+    //   email,
+    //   password,
+    //   callbackUrl: callbackUrl ?? '/',
+    //   redirect: false,
+    // });
+    const result = null;
+
     if (result?.error) {
       setError(result.error);
     }

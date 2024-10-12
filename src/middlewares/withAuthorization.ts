@@ -1,5 +1,3 @@
-import { getToken } from 'next-auth/jwt';
-
 import {
   type NextFetchEvent,
   type NextRequest,
@@ -12,14 +10,11 @@ export const withAuthorization: MiddlewareFactory = next => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
 
-    if (['/profile']?.some(path => pathname.startsWith(path))) {
-      const token = await getToken({
-        req: request,
-        secret: process.env.NEXT_AUTH_SECRET,
-      });
+    if (['/admin', '/profile']?.some(path => pathname.startsWith(path))) {
+      const token = await (() => null)();
+
       if (!token) {
-        // const url = new URL(`/api/auth/sign-in`, request.url);
-        const url = new URL(`/auth/sign-in`, request.url);
+        const url = new URL(`/api/auth/sign-in`, request.url);
         url.searchParams.set('callbackUrl', encodeURI(request.url));
         return NextResponse.redirect(url);
       }
